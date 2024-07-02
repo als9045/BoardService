@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString
+@ToString(exclude = "writer")
 public class Board {
 
     @Id
@@ -20,6 +20,6 @@ public class Board {
     private String content;
 
     @ManyToOne
-    private User Writer;
+    private User writer;
 
 }

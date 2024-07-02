@@ -1,4 +1,29 @@
 package org.example.boardservice.Entity;
 
-public class Reply {
+
+import jakarta.persistence.*;
+import lombok.*;
+
+@Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@ToString(exclude = "board")
+public class Reply extends  base {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long Num;
+
+    private String text;
+
+    private String replyer;
+
+    @ManyToOne
+    private Board board;
+
+
+
+
 }

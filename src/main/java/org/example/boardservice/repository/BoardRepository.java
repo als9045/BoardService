@@ -1,7 +1,9 @@
 package org.example.boardservice.repository;
 
-import jakarta.persistence.Entity;
+
+import org.example.boardservice.Entity.Board;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public class BoardRepository {
+public interface BoardRepository extends JpaRepository<Board, Long> {
 }
