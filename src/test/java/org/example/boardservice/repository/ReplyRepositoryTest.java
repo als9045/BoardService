@@ -22,7 +22,7 @@ public class ReplyRepositoryTest {
 
             long Num = (long)(Math.random() * 100) + 1;
 
-            Board board = Board.builder().BoardNum(Num).build();
+            Board board = Board.builder().bno(Num).build();
 
             Reply reply = Reply.builder()
                     .text("Reply....."+i)

@@ -13,13 +13,13 @@ public class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long BoardNum;
+    private Long bno;
 
     private String title;
 
     private String content;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User writer;
 
 }
