@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @ToString(exclude = "writer")
-public class Board {
+public class BoardEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +20,6 @@ public class Board {
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private User writer;
+    private UserEntity writer;
 
 }

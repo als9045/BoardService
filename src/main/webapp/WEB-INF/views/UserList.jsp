@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: user
+  User: userEntity
   Date: 2024-07-01
   Time: 오후 3:26
   To change this template use File | Settings | File Templates.

@@ -1,9 +1,7 @@
 package org.example.boardservice.repository;
 
-import org.example.boardservice.Entity.Board;
+import org.example.boardservice.Entity.BoardEntity;
 import org.example.boardservice.Entity.Reply;
-import org.example.boardservice.Entity.User;
-import org.example.boardservice.repository.ReplyRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,11 +20,11 @@ public class ReplyRepositoryTest {
 
             long Num = (long)(Math.random() * 100) + 1;
 
-            Board board = Board.builder().bno(Num).build();
+            BoardEntity boardEntity = BoardEntity.builder().bno(Num).build();
 
             Reply reply = Reply.builder()
                     .text("Reply....."+i)
-                    .board(board)
+                    .boardEntity(boardEntity)
                     .replyer("guest")
                     .build();
             replyRepository.save(reply);

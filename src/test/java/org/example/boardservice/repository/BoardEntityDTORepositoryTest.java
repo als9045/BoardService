@@ -1,7 +1,7 @@
 package org.example.boardservice.repository;
 
-import org.example.boardservice.Entity.Board;
-import org.example.boardservice.Entity.User;
+import org.example.boardservice.Entity.BoardEntity;
+import org.example.boardservice.Entity.UserEntity;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 @SpringBootTest
-public class BoardRepositoryTest {
+public class BoardEntityDTORepositoryTest {
 
     @Autowired
     private BoardRepository boardRepository;
@@ -25,15 +25,15 @@ public class BoardRepositoryTest {
 
         IntStream.rangeClosed(1, 100).forEach(i -> {
 
-            User member = User.builder().email("user"+i+"@aas.com").build();
+            UserEntity member = UserEntity.builder().email("user"+i+"@aas.com").build();
 
-            Board board = Board.builder()
+            BoardEntity boardEntity = BoardEntity.builder()
                     .title("Title...."+i)
                     .content("content...."+i)
                     .writer(member)
                     .build();
 
-            boardRepository.save(board);
+            boardRepository.save(boardEntity);
         });
 
     }
