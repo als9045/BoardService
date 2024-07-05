@@ -6,50 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-  <style>
-    /* 추가적인 CSS 스타일링을 원할 경우 여기에 추가 */
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
 
-    #wrapper {
-      display: flex;
-    }
-
-    #sidebar-wrapper {
-      width: 250px;
-      position: fixed;
-      height: 100%;
-      overflow-y: auto;
-      overflow-x: hidden;
-      padding-top: 20px;
-      z-index: 1000; /* 사이드바가 페이지 컨텐츠 위로 나오도록 설정 */
-    }
-
-    #page-content-wrapper {
-      width: 100%;
-      padding: 20px;
-      transition: margin-left 0.3s ease;
-      margin-left: 250px; /* 초기에 사이드바와 동일한 넓이로 설정 */
-    }
-
-    .navbar {
-      z-index: 999;
-    }
-
-    #menu-toggle {
-      float: right;
-    }
-
-    /* 추가적인 스타일링을 원할 경우 여기에 추가 */
-  </style>
-    <title>Title</title>
-</head>
-<body>
 <div id="page-content-wrapper">
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
@@ -83,6 +40,3 @@
   </nav>
 
 </div>
-
-</body>
-</html>
