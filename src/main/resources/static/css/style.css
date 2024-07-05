@@ -1,0 +1,28 @@
+
+
+#wrapper {
+    display: flex;
+    height: 100%;
+}
+
+#sidebar-wrapper {
+    width: 250px; /* 원하는 사이드바 넓이로 설정 */
+    position: fixed;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+#page-content-wrapper {
+    margin-left: 250px; /* 사이드바와 동일한 넓이로 페이지 컨텐츠 영역을 조정 */
+    width: calc(100% - 250px); /* 페이지 컨텐츠 영역 넓이 조정 */
+}
+
+.navbar {
+    z-index: 999;
+}
+
+#menu-toggle {
+    float: right;
+}

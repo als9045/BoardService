@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString(exclude = "boardEntity")
+@ToString(exclude = "board")
 public class Reply extends baseEntity {
 
     @Id
@@ -21,7 +21,7 @@ public class Reply extends baseEntity {
     private String replyer;
 
     @ManyToOne
-    private BoardEntity boardEntity;
+    private Board board;
 
 
 

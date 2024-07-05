@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @ToString
-public class UserEntity extends baseEntity {
+public class User extends baseEntity {
 
     @Id
     private String email;

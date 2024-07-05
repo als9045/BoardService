@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @ToString(exclude = "writer")
-public class BoardEntity {
+public class Board extends baseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +20,13 @@ public class BoardEntity {
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private UserEntity writer;
+    private User writer;
 
+    public void changeTitle(String title){
+        this.title = title;
+    }
+
+    public void changeContent(String content){
+        this.content = content;
+    }
 }
