@@ -1,7 +1,9 @@
 package org.example.boardservice.repository;
 
+import org.example.boardservice.DTO.BoardDTO;
 import org.example.boardservice.Entity.Board;
 import org.example.boardservice.Entity.User;
+import org.example.boardservice.service.BoardService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +21,9 @@ public class BoardDTORepositoryTest {
 
     @Autowired
     private BoardRepository boardRepository;
+
+    @Autowired
+    private BoardService boardService;
 
     @Test
     public void insertBoard() {
@@ -72,6 +77,19 @@ public class BoardDTORepositoryTest {
             Object[] arr = (Object[]) row;
             System.out.println(Arrays.toString(arr));
         });
+
+    }
+
+    @Test
+    public void test5(){
+
+        BoardDTO dto = BoardDTO.builder()
+                .title("Test")
+                .content("Cpmtemt")
+                .writerEmail("user10@aas.com")
+                .build();
+
+        Long bno = boardService.registerBoard(dto);
 
     }
 }

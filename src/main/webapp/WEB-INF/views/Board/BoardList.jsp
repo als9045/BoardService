@@ -37,7 +37,7 @@
                 <tbody>
                 <c:forEach var="dto" items="${result.dtoList}">
                     <tr>
-                        <td>${dto.bno}</td>
+                        <td><a href="/board/read?bno=${dto.bno}">${dto.bno}</a></td>
                         <td>${dto.title}</td>
                         <td>${dto.writerName}</td>
                         <td>${dto.regDate}</td>
