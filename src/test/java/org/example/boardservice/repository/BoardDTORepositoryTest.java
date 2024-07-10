@@ -92,4 +92,12 @@ public class BoardDTORepositoryTest {
         Long bno = boardService.registerBoard(dto);
 
     }
+
+    @Test
+    public void test6(){
+        System.out.println("tset===");
+        boardRepository.search1();
+
+    }
+
 }

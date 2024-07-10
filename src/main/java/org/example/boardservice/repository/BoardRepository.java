@@ -2,6 +2,7 @@ package org.example.boardservice.repository;
 
 
 import org.example.boardservice.Entity.Board;
+import org.example.boardservice.repository.saech.searchBoardRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,7 +12,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 
-public interface BoardRepository extends JpaRepository<Board, Long> {
+public interface BoardRepository extends JpaRepository<Board, Long>, searchBoardRepository {
+
     @Query("select b, w from Board b left join b.writer w where b.bno =:bno")
     Object getBoardWiriter(@Param("bno") Long bno);
 
@@ -31,4 +33,4 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
             " left outer join Reply r on r.board = b " +
             " where b.bno =:bno")
     Object getBoardByBno(@Param("bno") Long bno);
-}
+} 
