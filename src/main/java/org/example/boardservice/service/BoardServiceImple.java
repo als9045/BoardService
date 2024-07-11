@@ -40,9 +40,16 @@ public class BoardServiceImple implements BoardService {
     @Override
     public PageResultDTO<BoardDTO, Object[]> getList(PageRequestDTO pageRequestDTO) {
 
+        System.out.println("SerivceImpe= "+pageRequestDTO);
         Function<Object[], BoardDTO> fn = (en -> entityToDto((Board)en[0], (User)en[1], (Long)en[2]));
 
         Page<Object[]> result = repository.getBoardCount(pageRequestDTO.getPageable(Sort.by("bno").descending()));
+
+        Page<Object[]> resutl = repository.searchPage(
+                pageRequestDTO.getType(),
+                pageRequestDTO.getKeyword(),
+                pageRequestDTO.getPageable(Sort.by("bno").descending())
+        );
 
         return new PageResultDTO<>(result, fn);
     }

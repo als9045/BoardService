@@ -22,12 +22,14 @@ public class BoardController {
 
     @GetMapping({"/","/list"})
     public String list(PageRequestDTO pageRequestDTO, Model model) {
-        System.out.println("Board-----");
+        System.out.println("BoardList-----");
+        System.out.println("Type = "+pageRequestDTO.getType());
+        System.out.println("Type = "+pageRequestDTO.getKeyword());
 
         System.out.println("resutl = "+ boardService.getList(pageRequestDTO));
         model.addAttribute("result", boardService.getList(pageRequestDTO));
-        return "Board/BoardList";
 
+        return "Board/BoardList";
     }
 
     @GetMapping("/register")

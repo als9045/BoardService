@@ -25,6 +25,27 @@
             </div>
 
 
+            <form action="/board/list" method="get" id="searchForm">
+            <div>
+                <input type="hidden" name="page" value = "1">
+
+                <select class="form-select" aria-label="Default select example"  name="type" >
+                <option value="t" ${pageRequestDTO.type == 't' ? 'selected' : ''}>제목</option>
+                <option value="c" ${pageRequestDTO.type == 'c' ? 'selected' : ''}>내용</option>
+                <option value="w" ${pageRequestDTO.type == 'w' ? 'selected' : ''}>작성자</option>
+                <option value="tc" ${pageRequestDTO.type == 'tc' ? 'selected' : ''}>제목 + 내용</option>
+                <option value="tcw" ${pageRequestDTO.type == 'tcw' ? 'selected' : ''}>제목 + 내용 + 작성자</option>
+            </select>
+
+                <input type="text" name="keyword" style="width: 300px;"
+                value="${pageRequestDTO.keyword}">
+                <button type="button" class="btn btn-outline-secondary btn-search">Search</button>
+                <button type="button" class="btn btn-outline-secondary btn-clear">Clear</button>
+
+
+            </div>
+
+
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -98,6 +119,22 @@
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
+
+    var searchForm = $("#searchForm");
+
+    $('.btn-search').click(function(e){
+
+        searchForm.submit();
+
+    });
+
+    $('.btn-clear').click(function(e){
+
+        searchForm.empty().submit();
+
+    });
+
+
 </script>
 
 </body>
