@@ -117,7 +117,7 @@
                     </table>
                 </form>
                 <div class="action-buttons">
-                    <a href="/board/read?bno=${dto.bno}" class="btn btn-primary">Edit</a>
+                    <a href="/board/modify?bno=${dto.bno}" class="btn btn-primary">Edit</a>
                     <button type="button" class="delete" >Delete</button>
                 </div>
             </div>

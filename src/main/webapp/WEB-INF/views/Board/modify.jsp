@@ -108,11 +108,11 @@
                         </tr>
                         <tr>
                             <th>regDate</th>
-                            <td><input type="email" name="regDate"value="${dto.regDate}"  readonly></td>
+                            <td><input type="text" name="regDate"value="${dto.regDate}"  readonly></td>
                         </tr>
                         <tr>
                             <th>Writer Email</th>
-                            <td><input type="email" name="modDate" value="${dto.modDate}" readonly></td>
+                            <td><input type="text" name="modDate" value="${dto.modDate}" readonly></td>
                         </tr>
                     </table>
                 </form>
@@ -137,7 +137,7 @@
         $("#wrapper").toggleClass("toggled");
     });
 
-    $(function adUser() {
+    $(document).ready(function() {
         $("#modify").on("click", function() {
             $("form").attr("method", "POST").attr("action", "/board/modify").submit();
         });

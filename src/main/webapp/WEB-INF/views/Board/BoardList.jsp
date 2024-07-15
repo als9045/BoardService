@@ -25,7 +25,7 @@
             </div>
 
 
-            <form action="/board/list" method="get" id="searchForm">
+            <form action="/board/searchlist" method="get" id="searchForm">
             <div>
                 <input type="hidden" name="page" value = "1">
 

@@ -32,6 +32,18 @@ public class BoardController {
         return "Board/BoardList";
     }
 
+    @GetMapping({"/searchlist"})
+    public String saerchlist(PageRequestDTO pageRequestDTO, Model model) {
+        System.out.println("BoardList-----");
+        System.out.println("Type = "+pageRequestDTO.getType());
+        System.out.println("Type = "+pageRequestDTO.getKeyword());
+
+        System.out.println("searchListController = "+ boardService.searchList(pageRequestDTO));
+        model.addAttribute("result", boardService.searchList(pageRequestDTO));
+
+        return "Board/BoardList";
+    }
+
     @GetMapping("/register")
     public String register(Model model) {
         System.out.println("register===");
@@ -91,7 +103,7 @@ public class BoardController {
             System.out.println("dto : "+dto);
             boardService.modify(dto);
 
-            return "redirect:/Board/read";
+            return "redirect:/board/list";
     }
 
     @PostMapping("/remove")
