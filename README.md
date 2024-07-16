@@ -20,9 +20,9 @@ JPA (Java Persistence API)의 학습을 목표로, 게시판 웹 애플리케이
 
 ## 경험한 에러
 
-- QueryDSL Maven 적용 중 build failed -> [블로그 정리](https://als9045.tistory.com/entry/QueryDSL-Maven-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0)
-- java.lang.RuntimeException: java.lang.NoSuchMethodError: 'void com.querydsl.jpa.impl.JPAQuery.<init>(jakarta.persistence.EntityManager, com.querydsl.jpa.JPQLTemplates) -> [블로그 정리]([https://zrr.kr/93NG](https://als9045.tistory.com/entry/javalangRuntimeException-javalangNoSuchMethodError-void-comquerydsljpaimplJPAQuery-%EC%97%90%EB%9F%AC-%ED%95%B4%EA%B2%B0))
-- 
+- QueryDSL Maven 적용 중 build failed -> [에러 해결](https://als9045.tistory.com/entry/QueryDSL-Maven-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0)
+- java.lang.RuntimeException: java.lang.NoSuchMethodError: 'void com.querydsl.jpa.impl.JPAQuery.<init>(jakarta.persistence.EntityManager, com.querydsl.jpa.JPQLTemplates) -> [에러 해결]((https://als9045.tistory.com/entry/javalangRuntimeException-javalangNoSuchMethodError-void-comquerydsljpaimplJPAQuery-%EC%97%90%EB%9F%AC-%ED%95%B4%EA%B2%B0))
+  
   
 ## 기술 스택
 
