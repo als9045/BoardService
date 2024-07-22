@@ -1,25 +1,19 @@
 pipeline {
     agent any
-
     stages {
-        stage('Checkout') {
+        stage('build') {
             steps {
-                git branch: 'master', url: 'https://github.com/als9045/-Board-Service.git'
+                echo 'building the application...'
             }
         }
-        stage('Build') {
+        stage('test') {
             steps {
-                echo 'Building...'
+                echo 'testing the application...'
             }
         }
-        stage('Test') {
+        stage('deploy') {
             steps {
-                echo 'Testing...'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying...'
+                echo 'deploying the application...'
             }
         }
     }
