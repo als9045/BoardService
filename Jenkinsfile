@@ -1,19 +1,27 @@
 pipeline {
     agent any
+
     stages {
-        stage('build') {
+        stage('Checkout') {
             steps {
-                echo 'building the application...'
+                // GitHub에서 소스 코드 체크아웃
+                checkout scm
             }
         }
-        stage('test') {
+        stage('Build Docker Image') {
             steps {
-                echo 'testing the application...'
+                script {
+                    // Docker 이미지를 빌드
+                    docker.build('board-service-image', '.')
+                }
             }
         }
-        stage('deploy') {
+        stage('Run Docker Container') {
             steps {
-                echo 'deploying the application...'
+                script {
+                    // Docker 컨테이너를 실행
+                    docker.image('board-service-image').run('-d -p 8081:8080')
+                }
             }
         }
     }
