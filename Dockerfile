@@ -1,4 +1,4 @@
-# Step 1: Build the application
+# Step 1: Use a Maven image to build the application
 FROM maven:3.8.5-openjdk-17 AS build
 
 # Set the working directory
@@ -12,7 +12,7 @@ RUN mvn dependency:go-offline
 COPY src ./src
 RUN mvn clean package -DskipTests
 
-# Step 2: Run the application
+# Step 2: Use a JDK image to run the application
 FROM openjdk:17-jdk-slim
 
 # Set the working directory
