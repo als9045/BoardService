@@ -1,25 +1,34 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3.8.5-openjdk-17'
-            args '-v /root/.m2:/root/.m2' // Maven 로컬 캐시를 Jenkins와 공유합니다.
-        }
+    agent any
+
+    tools {
+        // Install the Maven version configured as "Maven3.9.8" and add it to the path.
+        maven "Maven3.9.8"
     }
 
     stages {
-        stage('Checkout') {
+        stage('Git Clone') {
             steps {
                 git 'https://github.com/als9045/-Board-Service.git'
             }
         }
+
         stage('Build') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                sh '''
+                    echo Build start
+                    mvn clean compile package -DskipTests=true
+                '''
             }
         }
-        stage('Run') {
+
+        stage('Deploy') {
             steps {
-                sh 'java -jar target/*.jar'
+                deploy adapters: [tomcat9(
+                    credentialsId: 'deploy_user',
+                    path: '',
+                    url: 'http://192.168.1.10:8080'
+                )], contextPath: null, war: '**/*.war'
             }
         }
     }
