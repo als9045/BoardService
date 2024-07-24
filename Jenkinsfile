@@ -29,7 +29,19 @@ pipeline {
             steps {
                 script {
                     // Dockerfile이 위치한 디렉토리로 이동
-                    sh 'cd "-Board-Service" && docker build -t $IMAGE_NAME .'
+                    sh 'cd BoardService && docker build -t $IMAGE_NAME .'
+                }
+            }
+        }
+
+        stage('Clean Up Docker Container') {
+            steps {
+                script {
+                    // 기존 컨테이너 중지 및 삭제
+                    sh '''
+                    docker ps -q --filter name=my-tomcat-container | grep -q . && docker stop my-tomcat-container
+                    docker ps -aq --filter name=my-tomcat-container | grep -q . && docker rm my-tomcat-container
+                    '''
                 }
             }
         }
@@ -38,7 +50,7 @@ pipeline {
             steps {
                 script {
                     // Docker 컨테이너 실행
-                    sh 'docker run -d -p 8081:8080 $IMAGE_NAME'
+                    sh 'docker run -d -p 8081:8080 --name my-tomcat-container $IMAGE_NAME'
                 }
             }
         }
@@ -52,6 +64,10 @@ pipeline {
 
         failure {
             echo 'Build failed!'
+            // 추가적인 조치 예: 로그 파일 아카이브
+            archiveArtifacts artifacts: '**/target/*.log', allowEmptyArchive: true
+            // 예: Slack 알림 전송
+            // slackSend(channel: '#jenkins', message: "Build failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}")
         }
     }
 }
