@@ -2,60 +2,47 @@ pipeline {
     agent any
 
     tools {
-        // Install the Maven version configured as "Maven3.9.8" and add it to the path.
-        maven "Maven3.9.8"
+        maven 'Maven3.9.8'  // Maven 버전 설정
     }
 
     environment {
-        DEPLOY_CREDENTIALS_ID = 'Git_per_token' // Jenkins에서 설정한 자격 증명 ID
-        TOMCAT_URL = 'http://192.168.1.10:8080'
-        GIT_REPO_URL = 'https://github.com/als9045/-Board-Service.git'
+        DEPLOY_CREDENTIALS_ID = 'Git_per_token'  // 자격 증명 ID
+        TOMCAT_URL = 'http://192.168.1.10:8080'  // Tomcat URL
+        GIT_REPO_URL = 'https://github.com/als9045/-Board-Service.git'  // Git 저장소 URL
     }
 
     stages {
         stage('Git Clone') {
             steps {
-                git GIT_REPO_URL
+                git branch: 'master', url: GIT_REPO_URL
             }
         }
 
         stage('Build') {
             steps {
-                sh '''
-                    echo Build start
-                    mvn clean compile package -DskipTests=true
-                '''
+                sh 'mvn clean package -DskipTests=true'
             }
         }
 
         stage('Deploy') {
             steps {
-                deploy adapters: [
-                    [$class: 'DeployPublisher',
-                     credentialsId: DEPLOY_CREDENTIALS_ID,
-                     contextPath: '/',
-                     war: '**/*.war',
-                     url: TOMCAT_URL
-                    ]
-                ]
+                deploy adapters: [tomcat9(
+                    credentialsId: DEPLOY_CREDENTIALS_ID,
+                    url: TOMCAT_URL,
+                    path: ''
+                )], contextPath: '', war: '**/*.war'
             }
         }
     }
 
     post {
         always {
-            // Archive the build artifacts
             archiveArtifacts artifacts: '**/target/*.war', allowEmptyArchive: true
-
-            // Archive the test results
             junit '**/target/surefire-reports/*.xml'
         }
 
         failure {
-            // Send notification on failure (customize as needed)11
             echo 'Build failed!'
-            // Example: notify via email or slack
-            // mail to: 'team@example.com', subject: "Failed Pipeline: ${currentBuild.fullDisplayName}", body: "Something is wrong with ${env.BUILD_URL}"
         }
     }
 }
