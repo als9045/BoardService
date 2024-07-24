@@ -32,8 +32,9 @@ pipeline {
                     sh '''
                       docker ps -q --filter "name=my-tomcat-container" | grep -q . && docker stop my-tomcat-container
                       docker ps -aq --filter "name=my-tomcat-container" | grep -q . && docker rm my-tomcat-container
-                      docker build -t $IMAGE_NAME .
                     '''
+                    // Docker 이미지를 빌드합니다.
+                    sh 'docker build -t $IMAGE_NAME .'
                 }
             }
         }
@@ -41,7 +42,7 @@ pipeline {
         stage('Deploy Docker Container') {
             steps {
                 script {
-                    // Docker 컨테이너 실행
+                    // Docker 컨테이너를 실행합니다.
                     sh 'docker run -d -p 8081:8080 --name my-tomcat-container $IMAGE_NAME'
                 }
             }
