@@ -11,17 +11,20 @@ pipeline {
         IMAGE_NAME = 'my-tomcat-image'  // Docker 이미지 이름
         CONTAINER_NAME = 'my-tomcat-container'  // Docker 컨테이너 이름
         DOCKER_PORT = 8081  // Tomcat 컨테이너 포트
+        DOCKERFILE_DIR = 'Boardservice'  // Dockerfile이 있는 디렉토리
     }
 
     stages {
         stage('Git Clone') {
             steps {
+                // Git 저장소 클론
                 git branch: 'master', url: GIT_REPO_URL
             }
         }
 
         stage('Build') {
             steps {
+                // Maven 빌드
                 sh 'mvn clean package -DskipTests=true'
             }
         }
@@ -29,8 +32,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Dockerfile이 있는 디렉토리로 이동
-                    dir('Boardservice') {
+                    // Dockerfile이 있는 디렉토리로 이동하여 Docker 이미지 빌드
+                    dir(DOCKERFILE_DIR) {
                         sh 'docker build -t $IMAGE_NAME .'
                     }
                 }
@@ -52,7 +55,9 @@ pipeline {
 
     post {
         always {
+            // WAR 파일 아카이브
             archiveArtifacts artifacts: '**/target/*.war', allowEmptyArchive: true
+            // 테스트 리포트
             junit '**/target/surefire-reports/*.xml'
         }
 
