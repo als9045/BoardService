@@ -52,7 +52,7 @@ pipeline {
         }
 
         failure {
-            // Send notification on failure (customize as needed)
+            // Send notification on failure (customize as needed)11
             echo 'Build failed!'
             // Example: notify via email or slack
             // mail to: 'team@example.com', subject: "Failed Pipeline: ${currentBuild.fullDisplayName}", body: "Something is wrong with ${env.BUILD_URL}"
