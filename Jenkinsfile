@@ -21,20 +21,19 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn clean package -DskipTests=true'
+                sh 'mvn clean package'
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Dockerfile이 위치한 디렉토리로 이동
-                     sh """
+                    // 컨테이너가 이미 실행 중이면 중지 및 제거
+                    sh '''
                       docker ps -q --filter "name=my-tomcat-container" | grep -q . && docker stop my-tomcat-container
                       docker ps -aq --filter "name=my-tomcat-container" | grep -q . && docker rm my-tomcat-container
-                      """
-                      // Docker 컨테이너 실행
-                      sh 'docker run -d -p 8081:8080 --name my-tomcat-container $IMAGE_NAME'
+                      docker build -t $IMAGE_NAME .
+                    '''
                 }
             }
         }
@@ -43,7 +42,7 @@ pipeline {
             steps {
                 script {
                     // Docker 컨테이너 실행
-                    sh 'docker run -d -p 8081:8080 $IMAGE_NAME'
+                    sh 'docker run -d -p 8081:8080 --name my-tomcat-container $IMAGE_NAME'
                 }
             }
         }
