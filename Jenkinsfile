@@ -19,6 +19,21 @@ pipeline {
             }
         }
 
+        stage('Verify Directory Structure') {
+            steps {
+                script {
+                    // 현재 작업 디렉토리 출력
+                    sh 'pwd'
+
+                    // 현재 디렉토리 목록 출력
+                    sh 'ls -al'
+
+                    // BoardService 디렉토리 내 목록 출력
+                    sh 'ls -al BoardService'
+                }
+            }
+        }
+
         stage('Build') {
             steps {
                 sh 'mvn clean package -DskipTests=true'
@@ -30,6 +45,11 @@ pipeline {
                 script {
                     // 'BoardService' 디렉토리로 이동하여 Docker 이미지 빌드
                     dir('BoardService') {
+                        // 현재 디렉토리 확인
+                        sh 'pwd'
+                        sh 'ls -al'
+
+                        // Docker 이미지 빌드
                         sh 'docker build -t $IMAGE_NAME .'
                     }
                 }
