@@ -28,7 +28,34 @@ pipeline {
                 script {
                     // 클론 후 디렉토리 구조 확인
                     sh 'echo "Directory Structure inside BoardService:"'
-                    sh 'ls -al /var/jenkins_home/workspace/sbb_1/BoardService'
+                    sh 'ls -al /var/jenkins_home/workspace/sbb_1'
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    // Maven 빌드
+                    sh 'mvn clean package -DskipTests=true'
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Docker 이미지 빌드
+                    sh 'docker build -t ${IMAGE_NAME} /var/jenkins_home/workspace/sbb_1'
+                }
+            }
+        }
+
+        stage('Deploy Docker Container') {
+            steps {
+                script {
+                    // Docker 컨테이너 배포
+                    sh 'docker run -d -p 8080:8080 ${IMAGE_NAME}'
                 }
             }
         }
