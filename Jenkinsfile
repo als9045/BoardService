@@ -28,8 +28,10 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Dockerfile이 위치한 디렉토리로 이동
-                    sh 'cd BoardService && docker build -t $IMAGE_NAME .'
+                    // 'BoardService' 디렉토리로 이동하여 Docker 이미지 빌드
+                    dir('BoardService') {
+                        sh 'docker build -t $IMAGE_NAME .'
+                    }
                 }
             }
         }
@@ -66,8 +68,6 @@ pipeline {
             echo 'Build failed!'
             // 추가적인 조치 예: 로그 파일 아카이브
             archiveArtifacts artifacts: '**/target/*.log', allowEmptyArchive: true
-            // 예: Slack 알림 전송
-            // slackSend(channel: '#jenkins', message: "Build failed: ${env.JOB_NAME} ${env.BUILD_NUMBER}")
         }
     }
 }
