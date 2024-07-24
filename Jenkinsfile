@@ -2,14 +2,14 @@ pipeline {
     agent any
 
     tools {
-        maven 'Maven3.9.8'  // Maven 버전 설정
+        maven 'Maven3.9.8'
     }
 
     environment {
-        DEPLOY_CREDENTIALS_ID = 'Git_per_token'  // 자격 증명 ID
-        TOMCAT_URL = 'http://192.168.1.11:8080'  // Tomcat URL
-        GIT_REPO_URL = 'https://github.com/als9045/BoardService.git'  // Git 저장소 URL
-        IMAGE_NAME = 'my-tomcat-image'  // Docker 이미지 이름
+        DEPLOY_CREDENTIALS_ID = 'Git_per_token'
+        TOMCAT_URL = 'http://192.168.1.11:8080'
+        GIT_REPO_URL = 'https://github.com/als9045/BoardService.git'
+        IMAGE_NAME = 'my-tomcat-image'
     }
 
     stages {
@@ -22,13 +22,11 @@ pipeline {
         stage('Verify Directory Structure') {
             steps {
                 script {
-                    // 현재 작업 디렉토리 출력
+                    // 현재 작업 디렉토리 확인
                     sh 'pwd'
-
-                    // 현재 디렉토리 목록 출력
+                    // 작업 디렉토리 내 파일 목록 확인
                     sh 'ls -al'
-
-                    // BoardService 디렉토리 내 목록 출력
+                    // BoardService 디렉토리 내 파일 목록 확인
                     sh 'ls -al BoardService'
                 }
             }
@@ -43,12 +41,12 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // 'BoardService' 디렉토리로 이동하여 Docker 이미지 빌드
+                    // BoardService 디렉토리로 이동하여 Docker 이미지 빌드
                     dir('BoardService') {
                         // 현재 디렉토리 확인
                         sh 'pwd'
+                        // 디렉토리 내 파일 목록 확인
                         sh 'ls -al'
-
                         // Docker 이미지 빌드
                         sh 'docker build -t $IMAGE_NAME .'
                     }
@@ -86,7 +84,6 @@ pipeline {
 
         failure {
             echo 'Build failed!'
-            // 추가적인 조치 예: 로그 파일 아카이브
             archiveArtifacts artifacts: '**/target/*.log', allowEmptyArchive: true
         }
     }
