@@ -29,7 +29,7 @@ pipeline {
             steps {
                 script {
                     // Dockerfile이 위치한 디렉토리로 이동
-                    sh 'cd -Board-Service && docker build -t $IMAGE_NAME .'
+                    sh 'cd "-Board-Service" && docker build -t $IMAGE_NAME .'
                 }
             }
         }
