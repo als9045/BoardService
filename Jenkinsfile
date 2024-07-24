@@ -31,12 +31,13 @@ pipeline {
         stage('Deploy') {
             steps {
                 deploy adapters: [
-                    tomcat9(
-                        credentialsId: DEPLOY_CREDENTIALS_ID,
-                        path: '',
-                        url: TOMCAT_URL
-                    )
-                ], contextPath: null, war: '**/*.war'
+                    [$class: 'DeployPublisher',
+                     credentialsId: DEPLOY_CREDENTIALS_ID,
+                     contextPath: '/',
+                     war: '**/*.war',
+                     url: TOMCAT_URL
+                    ]
+                ]
             }
         }
     }
@@ -51,7 +52,7 @@ pipeline {
         }
 
         failure {
-            // Send notification on failure (customize as needed1212
+            // Send notification on failure (customize as needed)
             echo 'Build failed!'
             // Example: notify via email or slack
             // mail to: 'team@example.com', subject: "Failed Pipeline: ${currentBuild.fullDisplayName}", body: "Something is wrong with ${env.BUILD_URL}"
