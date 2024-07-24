@@ -50,7 +50,7 @@ pipeline {
             steps {
                 script {
                     // Tomcat 컨테이너를 8081 포트에서 실행
-                    sh 'docker run -d -p 8081:8080 ${IMAGE_NAME}'
+                    sh 'docker run -d -p 8082:8080 ${IMAGE_NAME}'
                 }
             }
         }
