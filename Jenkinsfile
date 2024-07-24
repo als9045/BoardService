@@ -6,9 +6,11 @@ pipeline {
     }
 
     environment {
-        DEPLOY_CREDENTIALS_ID = 'Git_per_token'  // 자격 증명 ID
-        TOMCAT_URL = 'http://192.168.1.10:8080'  // Tomcat URL
         GIT_REPO_URL = 'https://github.com/als9045/-Board-Service.git'  // Git 저장소 URL
+        WAR_FILE = 'target/BoardService-0.0.1-SNAPSHOT.war'  // WAR 파일 경로
+        IMAGE_NAME = 'my-tomcat-image'  // Docker 이미지 이름
+        CONTAINER_NAME = 'my-tomcat-container'  // Docker 컨테이너 이름
+        DOCKER_PORT = 8081  // Tomcat 컨테이너 포트
     }
 
     stages {
@@ -24,13 +26,26 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        stage('Build Docker Image') {
             steps {
-                deploy adapters: [tomcat9(
-                    credentialsId: DEPLOY_CREDENTIALS_ID,
-                    url: TOMCAT_URL,
-                    path: ''
-                )], contextPath: '', war: '**/*.war'
+                script {
+                    // Dockerfile이 있는 디렉토리로 이동
+                    dir('Boardservice') {
+                        sh 'docker build -t $IMAGE_NAME .'
+                    }
+                }
+            }
+        }
+
+        stage('Deploy Docker Container') {
+            steps {
+                script {
+                    // 기존 컨테이너가 있으면 삭제
+                    sh "docker rm -f $CONTAINER_NAME || true"
+
+                    // Docker 컨테이너 실행
+                    sh "docker run -d --name $CONTAINER_NAME -p $DOCKER_PORT:8080 $IMAGE_NAME"
+                }
             }
         }
     }
