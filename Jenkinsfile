@@ -8,7 +8,7 @@ pipeline {
     environment {
         DEPLOY_CREDENTIALS_ID = 'Git_per_token'  // 자격 증명 ID
         TOMCAT_URL = 'http://192.168.1.11:8080'  // Tomcat URL
-        GIT_REPO_URL = 'https://github.com/als9045/-Board-Service.git'  // Git 저장소 URL
+        GIT_REPO_URL = 'https://github.com/als9045/BoardService.git'  // Git 저장소 URL
         IMAGE_NAME = 'my-tomcat-image'  // Docker 이미지 이름
     }
 
@@ -29,7 +29,12 @@ pipeline {
             steps {
                 script {
                     // Dockerfile이 위치한 디렉토리로 이동
-                    sh 'cd "-Board-Service" && docker build -t $IMAGE_NAME .'
+                     sh """
+                      docker ps -q --filter "name=my-tomcat-container" | grep -q . && docker stop my-tomcat-container
+                      docker ps -aq --filter "name=my-tomcat-container" | grep -q . && docker rm my-tomcat-container
+                      """
+                      // Docker 컨테이너 실행
+                      sh 'docker run -d -p 8081:8080 --name my-tomcat-container $IMAGE_NAME'
                 }
             }
         }
