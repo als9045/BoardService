@@ -50,7 +50,7 @@ pipeline {
        stage('Deploy Docker Containers') {
            steps {
                script {
-                   // Docker Compose의 전체 경로를 사용하여 기존 컨테이너 중지 및 삭제
+                   // Docker Compose의 전체 경로를 사용하여 기존 컨테이너 중지 및 삭제11
                    sh '''
                        CONTAINER_ID=$(/usr/local/bin/docker-compose -f ${DOCKER_COMPOSE_FILE} ps -q)
                        if [ ! -z "$CONTAINER_ID" ]; then
