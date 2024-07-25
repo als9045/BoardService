@@ -9,7 +9,8 @@ pipeline {
         DEPLOY_CREDENTIALS_ID = 'Git_per_token'
         GIT_REPO_URL = 'https://github.com/als9045/BoardService.git'
         IMAGE_NAME = 'my-tomcat-image'
-        DOCKER_COMPOSE_FILE = 'DockerCompose.yml'  // Docker Compose 파일 경로
+        DOCKER_COMPOSE_FILE = '/var/jenkins_home/workspace/sbb_1/DockerCompose.yml'  // Docker Compose 파일의 전체 경로
+        DOCKER_COMPOSE_PATH = '/usr/local/bin/docker-compose'  // Docker Compose의 전체 경로
         DOCKER_PORT = '8082'
     }
 
@@ -48,22 +49,22 @@ pipeline {
         }
 
         stage('Deploy Docker Containers') {
-                   steps {
-                       script {
-                           // Docker Compose의 전체 경로를 사용하여 기존 컨테이너 중지 및 삭제
-                           sh '''
-                               CONTAINER_ID=$(/usr/local/bin/docker-compose -f ${DOCKER_COMPOSE_FILE} ps -q)
-                               if [ ! -z "$CONTAINER_ID" ]; then
-                                   echo "Stopping and removing existing containers"
-                                   /usr/local/bin/docker-compose -f ${DOCKER_COMPOSE_FILE} down
-                               fi
-                           '''
-                           // Docker Compose의 전체 경로를 사용하여 컨테이너 시작
-                           sh '/usr/local/bin/docker-compose -f ${DOCKER_COMPOSE_FILE} up -d'
-                       }
-                   }
-               }
-           }
+            steps {
+                script {
+                    // Docker Compose의 전체 경로를 사용하여 기존 컨테이너 중지 및 삭제
+                    sh '''
+                        CONTAINER_ID=$(${DOCKER_COMPOSE_PATH} -f ${DOCKER_COMPOSE_FILE} ps -q)
+                        if [ ! -z "$CONTAINER_ID" ]; then
+                            echo "Stopping and removing existing containers"
+                            ${DOCKER_COMPOSE_PATH} -f ${DOCKER_COMPOSE_FILE} down
+                        fi
+                    '''
+                    // Docker Compose의 전체 경로를 사용하여 컨테이너 시작
+                    sh '${DOCKER_COMPOSE_PATH} -f ${DOCKER_COMPOSE_FILE} up -d'
+                }
+            }
+        }
+    }
 
     post {
         always {
