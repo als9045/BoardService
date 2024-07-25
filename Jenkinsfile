@@ -9,7 +9,7 @@ pipeline {
         DEPLOY_CREDENTIALS_ID = 'Git_per_token'
         GIT_REPO_URL = 'https://github.com/als9045/BoardService.git'
         IMAGE_NAME = 'my-tomcat-image'
-        DOCKER_COMPOSE_FILE = 'docker-compose.yml'  // Docker Compose 파일 경로
+        DOCKER_COMPOSE_FILE = 'DockerCompose.yml'  // Docker Compose 파일 경로
         DOCKER_PORT = '8082'
     }
 
@@ -52,7 +52,11 @@ pipeline {
                 script {
                     // Docker Compose를 사용하여 기존 컨테이너 중지 및 삭제
                     sh '''
-                        docker-compose -f ${DOCKER_COMPOSE_FILE} down
+                        CONTAINER_ID=$(docker-compose -f ${DOCKER_COMPOSE_FILE} ps -q)
+                        if [ ! -z "$CONTAINER_ID" ]; then
+                            echo "Stopping and removing existing containers"
+                            docker-compose -f ${DOCKER_COMPOSE_FILE} down
+                        fi
                     '''
                     // Docker Compose를 사용하여 컨테이너 시작
                     sh 'docker-compose -f ${DOCKER_COMPOSE_FILE} up -d'
