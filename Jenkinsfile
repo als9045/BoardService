@@ -47,23 +47,23 @@ pipeline {
             }
         }
 
-       stage('Deploy Docker Containers') {
-           steps {
-               script {
-                   // Docker Compose의 전체 경로를 사용하여 기존 컨테이너 중지 및 삭제11
-                   sh '''
-                       CONTAINER_ID=$(/usr/local/bin/docker-compose -f ${DOCKER_COMPOSE_FILE} ps -q)
-                       if [ ! -z "$CONTAINER_ID" ]; then
-                           echo "Stopping and removing existing containers"
-                           /usr/local/bin/docker-compose -f ${DOCKER_COMPOSE_FILE} down
-                       fi
-                   '''
-                   // Docker Compose의 전체 경로를 사용하여 컨테이너 시작
-                   sh '/usr/local/bin/docker-compose -f ${DOCKER_COMPOSE_FILE} up -d'
+        stage('Deploy Docker Containers') {
+                   steps {
+                       script {
+                           // Docker Compose의 전체 경로를 사용하여 기존 컨테이너 중지 및 삭제
+                           sh '''
+                               CONTAINER_ID=$(/usr/local/bin/docker-compose -f ${DOCKER_COMPOSE_FILE} ps -q)
+                               if [ ! -z "$CONTAINER_ID" ]; then
+                                   echo "Stopping and removing existing containers"
+                                   /usr/local/bin/docker-compose -f ${DOCKER_COMPOSE_FILE} down
+                               fi
+                           '''
+                           // Docker Compose의 전체 경로를 사용하여 컨테이너 시작
+                           sh '/usr/local/bin/docker-compose -f ${DOCKER_COMPOSE_FILE} up -d'
+                       }
+                   }
                }
            }
-       }
-
 
     post {
         always {
