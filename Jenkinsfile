@@ -10,6 +10,7 @@ pipeline {
         TOMCAT_URL = 'http://192.168.1.11:8081'  // 포트를 8081로 수정
         GIT_REPO_URL = 'https://github.com/als9045/BoardService.git'
         IMAGE_NAME = 'my-tomcat-image'
+        DOCKER_PORT = '8082'
     }
 
     stages {
@@ -49,7 +50,16 @@ pipeline {
         stage('Deploy Docker Container') {
             steps {
                 script {
-                    // Tomcat 컨테이너를 8081 포트에서 실행
+                    // 8082 포트를 사용하는 컨테이너가 있는지 확인하고, 있다면 중지 및 삭제
+                    sh '''
+                        CONTAINER_ID=$(docker ps -q --filter "publish=${DOCKER_PORT}")
+                        if [ ! -z "$CONTAINER_ID" ]; then
+                            echo "Stopping and removing container using port ${DOCKER_PORT}"
+                            docker stop $CONTAINER_ID
+                            docker rm $CONTAINER_ID
+                        fi
+                    '''
+                    // Tomcat 컨테이너를 8082 포트에서 실행
                     sh 'docker run -d -p 8082:8080 ${IMAGE_NAME}'
                 }
             }
