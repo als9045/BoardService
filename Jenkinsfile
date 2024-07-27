@@ -23,15 +23,6 @@ pipeline {
             }
         }
 
-        stage('Verify Clone') {
-            steps {
-                script {
-                    sh 'echo "Directory Structure inside BoardService:"'
-                    sh 'ls -al /var/jenkins_home/workspace/sbb_1'
-                }
-            }
-        }
-
         stage('Build') {
             steps {
                 script {
