@@ -8,7 +8,7 @@ JPA (Java Persistence API)의 학습을 목표로, 게시판 웹 애플리케이
 
 ## <h3>포트폴리오</h3>
 
-[eTa 포트폴리오](https://url.kr/xf17iu)
+[포트폴리오](https://url.kr/xf17iu)
 
 
 
