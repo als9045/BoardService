@@ -22,7 +22,15 @@ JPA (Java Persistence API)의 학습을 목표로, 게시판 웹 애플리케이
 
 - QueryDSL Maven 적용 중 build failed -> [에러 해결](https://als9045.tistory.com/entry/QueryDSL-Maven-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0)
 - java.lang.RuntimeException: java.lang.NoSuchMethodError: 'void com.querydsl.jpa.impl.JPAQuery.<init>(jakarta.persistence.EntityManager, com.querydsl.jpa.JPQLTemplates) -> [에러 해결](https://als9045.tistory.com/entry/javalangRuntimeException-javalangNoSuchMethodError-void-comquerydsljpaimplJPAQuery-%EC%97%90%EB%9F%AC-%ED%95%B4%EA%B2%B0)
-  
+
+## 배포 에러-> [에러 해결](https://als9045.tistory.com/entry/%EC%A0%A0%ED%82%A8%EC%8A%A4-%EC%97%90%EB%9F%AC-%EB%AA%A8%EC%9D%8C)
+
+- attempt to recreate a file for type org.example.boardservice.entity.qbaseentity
+- Webhooks
+- failed to read dockerfile: open Dockerfile: no such file or directory
+- docker-compose: not found
+- Deploy 성공 했지만 404에러
+
 ## 기술 스택
 
 - Backend: Spring Boot, Spring Data JPA, QueryDSL, Hibernate
