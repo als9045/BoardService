@@ -38,5 +38,6 @@ JPA의 학습 및 적용 & 도커와 젠킨스를 이용한 파이프라인 구�
 - Database: MariaDB, MySQL WorkBench
 - Build Tool: Maven
 - Version Control: Git
+- DevOps : Docker, Jenkins
 
 
