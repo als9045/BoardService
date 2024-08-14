@@ -90,6 +90,7 @@ public class BoardDTORepositoryTest {
                 .build();
 
         Long bno = boardService.registerBoard(dto);
+        System.out.println("이이이 데이터 " + bno);
 
     }
 
